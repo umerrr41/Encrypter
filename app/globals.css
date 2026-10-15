@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f2f2eb;
+  --panel: #fffefa;
+  --canvas: #f6f6f0;
+  --ink: #222720;
+  --muted: #74796f;
+  --line: #e5e6dd;
+  --line-strong: #d6d9cd;
+  --green: #39724d;
+  --green-dark: #28583a;
+  --lime: #c9ed72;
+  --orange: #e56a4d;
+  --orange-dark: #bd4c35;
+}
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(rgba(48, 59, 44, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(48, 59, 44, 0.035) 1px, transparent 1px);
+  background-position: center 8px;
+  background-size: 32px 32px;
+  color: var(--ink);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+button,
+textarea,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.serif-accent {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.hero-copy {
+  animation: arrive 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.workspace-shell {
+  animation: arrive 760ms 90ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AccountBar from "@/app/components/AccountBar";
 
 type Mode = "encrypt" | "decrypt";
 
@@ -127,6 +128,7 @@ export default function Home() {
             <Icon className="h-4 w-4 text-[var(--green)]" name="lock" />
             AES-256
           </span>
+          <AccountBar />
         </header>
 
         <section className="hero-grid relative flex flex-col justify-between gap-7 py-10 sm:py-14 lg:flex-row lg:items-end lg:gap-12" id="top">

@@ -1,4 +1,5 @@
 import { createCipheriv, createDecipheriv, createHmac, randomBytes } from "node:crypto";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/session";
 
 const SYMBOLS = "!#$%&()*+,-./:;=";
 const MAX_TEXT_LENGTH = 10_000;
@@ -43,6 +44,10 @@ function errorResponse(message: string, status: number) {
 }
 
 export async function POST(request: Request) {
+  const cookie = request.headers.get("cookie")?.split(";").map((item) => item.trim())
+    .find((item) => item.startsWith(`${SESSION_COOKIE}=`))?.slice(SESSION_COOKIE.length + 1);
+  if (!verifySessionToken(cookie)) return errorResponse("Sign in to use the cipher.", 401);
+
   let body: CipherRequest;
 
   try {

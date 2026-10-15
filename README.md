@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Glyph setup
+
+Set these environment variables before starting the app:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/glyph
+SESSION_SECRET=replace-with-a-random-secret-at-least-32-characters-long
+ADMIN_PASSWORD=choose-a-unique-admin-password
+UMER_PASSWORD=choose-a-unique-umer-password
+SAIM_PASSWORD=choose-a-unique-saim-password
+```
+
+Use a managed MongoDB connection string for deployment. Keep the secret and passwords out of source control. On the first login, the app creates the `ADMIN`, `Umer`, and `Saim` profiles with bcrypt password hashes. Existing profile passwords are not overwritten by environment changes; update them in MongoDB using a new bcrypt hash when rotating credentials.
+
+`ADMIN` can toggle server maintenance, set update progress, and edit the status message. `Umer` and `Saim` can use the cipher but cannot change maintenance settings.
+
 ## Getting Started
 
 First, run the development server:

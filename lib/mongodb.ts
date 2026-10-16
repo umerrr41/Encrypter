@@ -20,7 +20,7 @@ export async function connectToDatabase() {
   if (!mongoUri) throw new Error("MONGODB_URI is not configured.");
 
   if (!cache.promise) {
-    cache.promise = mongoose.connect(mongoUri).catch((error: unknown) => {
+    cache.promise = mongoose.connect(mongoUri, { dbName: "Glyph" }).catch((error: unknown) => {
       cache.promise = null;
       throw error;
     });

@@ -4,35 +4,6 @@ import Profile from "@/MODELS/Profile";
 import { connectToDatabase } from "@/lib/mongodb";
 import { createSessionToken, SESSION_COOKIE, sessionCookieOptions } from "@/lib/session";
 
-// const configuredProfiles = [
-//   { username: "ADMIN", role: "admin", password: process.env.ADMIN_PASSWORD },
-//   { username: "Umer", role: "member", password: process.env.UMER_PASSWORD },
-//   { username: "Saim", role: "member", password: process.env.SAIM_PASSWORD },
-// ] as const;
-
-// // async function ensureProfiles() {
-// //   if (configuredProfiles.some((profile) => !profile.password || profile.password.length < 8)) {
-// //     throw new Error("Set ADMIN_PASSWORD, UMER_PASSWORD, and SAIM_PASSWORD to values of at least 8 characters.");
-// //   }
-
-//   for (const profile of configuredProfiles) {
-//     const password = profile.password;
-//     if (!password) throw new Error("A configured profile password is missing.");
-//     const existing = await Profile.findOne({ username: profile.username }).select("+passwordHash");
-//     if (existing) continue;
-
-//     try {
-//       await Profile.create({
-//         username: profile.username,
-//         role: profile.role,
-//         passwordHash: await bcrypt.hash(password, 12),
-//       });
-//     } catch (error) {
-//       if (!(typeof error === "object" && error !== null && "code" in error && error.code === 11000)) throw error;
-//     }
-//   }
-// }
-
 export async function POST(request: Request) {
   let body: { username?: unknown; password?: unknown };
   try {
@@ -52,7 +23,6 @@ export async function POST(request: Request) {
 
   try {
     await connectToDatabase();
-    // await ensureProfiles();
     const profile = await Profile.findOne({ username: body.username }).select("+passwordHash");
     if (!profile || !(await bcrypt.compare(body.password, profile.passwordHash))) {
       return NextResponse.json({ error: "That profile or password is incorrect." }, { status: 401 });
